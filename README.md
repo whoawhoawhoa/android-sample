@@ -1,0 +1,1 @@
+Kotlin & Gradle Android project for university course.
