@@ -24,13 +24,13 @@ enum class Levels {
 
 fun getByWinStreak(streak: Int): Levels {
     return when {
-        Levels.FIRST.maximumStreak() < streak -> {
+        Levels.FIRST.maximumStreak() > streak -> {
             Levels.FIRST
         }
-        Levels.SECOND.maximumStreak() < streak -> {
+        Levels.SECOND.maximumStreak() > streak -> {
             Levels.SECOND
         }
-        Levels.THIRD.maximumStreak() < streak -> {
+        Levels.THIRD.maximumStreak() > streak -> {
             Levels.THIRD
         }
         else -> {

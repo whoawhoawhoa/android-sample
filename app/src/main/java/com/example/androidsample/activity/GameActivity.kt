@@ -19,9 +19,13 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         initButtons()
-        setButtonsVisibility()
         findViewById<Button>(R.id.menuButton)
             .setOnClickListener(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setButtonsVisibility()
         startGame()
     }
 
@@ -29,7 +33,13 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         if (v?.id == R.id.menuButton) {
             toMenu()
         } else {
-            continueGame(buttons.indexOf(v))
+            continueGame(
+                buttons
+                    .filter { unit ->
+                        unit.visibility == View.VISIBLE
+                    }
+                    .indexOf(v)
+            )
         }
     }
 
@@ -48,7 +58,9 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun continueGame(index: Int) {
+        // todo show toast
         gameService.answerGiven(index)
+        setButtonsVisibility()
         startGame()
     }
 
@@ -78,6 +90,9 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             findViewById(R.id.answer5),
             findViewById(R.id.answer6)
         )
+        buttons.forEach { unit ->
+            unit.setOnClickListener(this)
+        }
     }
 
     private fun setButtonsVisibility() {
@@ -85,6 +100,8 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             val visible = constraintByIndex(i)(gameService.getLevel())
             if (!visible) {
                 unit.visibility = View.INVISIBLE
+            } else {
+                unit.visibility = View.VISIBLE
             }
         }
     }
