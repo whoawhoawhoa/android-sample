@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidsample.R
 import com.example.androidsample.entity.constraintByIndex
 import com.example.androidsample.service.GameService
 import com.example.androidsample.service.ScoresService
+
+const val ANSWER_CORRECT = "Correct answer!"
+const val ANSWER_INCORRECT = "Incorrect answer!"
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
     private val gameService: GameService = GameService()
@@ -61,9 +65,12 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     private fun continueGame(index: Int) {
         // todo show toast
         val correctAnswer = gameService.answerGiven(index)
+        var toastText = ANSWER_INCORRECT
         if (correctAnswer) {
             scoresService.inc()
+            toastText = ANSWER_CORRECT
         }
+        Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
         setButtonsVisibility()
         startGame()
     }

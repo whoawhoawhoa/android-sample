@@ -4,11 +4,10 @@ import com.example.androidsample.entity.*
 import kotlin.math.floor
 import kotlin.random.Random
 
-// todo kodein DI?
+// todo maybe this should be obj?
 class GameService {
     private val game: Game = Game()
 
-    // todo think about generalized random
     private val random: Random = Random(1)
 
     fun startGame() {
