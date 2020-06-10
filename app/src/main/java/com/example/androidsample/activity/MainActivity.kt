@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             .setOnClickListener(this)
         findViewById<Button>(R.id.scoresButton)
             .setOnClickListener(this)
+        findViewById<Button>(R.id.quitButton)
+            .setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             switchView(GameActivity::class.java)
         } else if (v?.id == R.id.scoresButton) {
             switchView(ScoreActivity::class.java)
+        } else {
+            finishAffinity()
         }
     }
 
