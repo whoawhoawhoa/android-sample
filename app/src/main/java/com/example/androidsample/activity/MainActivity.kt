@@ -14,14 +14,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.playButton)
             .setOnClickListener(this)
+        findViewById<Button>(R.id.scoresButton)
+            .setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        // todo: how to separate from that class?
+        if (v?.id == R.id.playButton) {
+            switchView(GameActivity::class.java)
+        } else if (v?.id == R.id.scoresButton) {
+            switchView(ScoreActivity::class.java)
+        }
+    }
+
+    private fun switchView(clazz: Class<out AppCompatActivity>) {
         startActivity(
             Intent(
                 this,
-                GameActivity::class.java
+                clazz
             )
         )
     }

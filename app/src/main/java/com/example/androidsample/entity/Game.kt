@@ -10,7 +10,6 @@ data class Game(
     var operation: Operations = Operations.ADD,
     var answer: Int = 0,
     var options: Array<Int> = emptyArray(),
-    // todo enum?
     var level: Levels = Levels.FIRST,
     var winStreak: Int = 0
 )

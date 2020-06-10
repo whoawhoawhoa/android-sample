@@ -10,17 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.androidsample.R
 import com.example.androidsample.entity.constraintByIndex
 import com.example.androidsample.service.GameService
+import com.example.androidsample.service.ScoresService
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
     private val gameService: GameService = GameService()
+    private val scoresService: ScoresService = ScoresService
     private var buttons: Array<Button> = emptyArray()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         initButtons()
-        findViewById<Button>(R.id.menuButton)
-            .setOnClickListener(this)
     }
 
     override fun onStart() {
@@ -32,6 +32,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v?.id == R.id.menuButton) {
             toMenu()
+            scoresService.setScore()
         } else {
             continueGame(
                 buttons
@@ -59,7 +60,10 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun continueGame(index: Int) {
         // todo show toast
-        gameService.answerGiven(index)
+        val correctAnswer = gameService.answerGiven(index)
+        if (correctAnswer) {
+            scoresService.inc()
+        }
         setButtonsVisibility()
         startGame()
     }
@@ -93,6 +97,8 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         buttons.forEach { unit ->
             unit.setOnClickListener(this)
         }
+        findViewById<Button>(R.id.menuButton)
+            .setOnClickListener(this)
     }
 
     private fun setButtonsVisibility() {
