@@ -21,12 +21,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (v?.id == R.id.playButton) {
-            switchView(GameActivity::class.java)
-        } else if (v?.id == R.id.scoresButton) {
-            switchView(ScoreActivity::class.java)
-        } else {
-            finishAffinity()
+        when (v?.id) {
+            R.id.playButton -> {
+                switchView(GameActivity::class.java)
+            }
+            R.id.scoresButton -> {
+                switchView(ScoreActivity::class.java)
+            }
+            else -> {
+                finishAffinity()
+            }
         }
     }
 
